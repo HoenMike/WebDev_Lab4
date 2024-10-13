@@ -23,7 +23,6 @@ function addTask(e) {
       id: Date.now(),
       text: sanitizeInput(taskInput.value),
       completed: false,
-      createdAt: Date.now(),
     };
     tasks.unshift(newTask);
     saveTasks();
@@ -72,9 +71,9 @@ function deleteTask(id) {
 function renderTasks() {
   const sortedTasks = [...tasks].sort((a, b) => {
     if (a.completed === b.completed) {
-      return b.createdAt - a.createdAt;
+      return b.id - a.id;
     }
-    return a.completed ? b.completedAt - a.completedAt : -1;
+    return a.completed ? 1 : -1;
   });
   taskList.innerHTML = sortedTasks
     .map(
@@ -101,7 +100,13 @@ function renderTasks() {
 }
 
 function saveTasks() {
-  setCookie("tasks", JSON.stringify(tasks), 7);
+  setCookie(
+    "tasks",
+    JSON.stringify(
+      tasks.map((task) => ({ id: task.id, text: task.text, completed: task.completed }))
+    ),
+    7
+  );
 }
 
 function setCookie(name, value, days) {
