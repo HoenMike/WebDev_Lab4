@@ -27,3 +27,12 @@
   align-items: center;
   flex-grow: 1;
 }
+.icon-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+}
+.icon-button .feather {
+  stroke: #dc3545;
+}

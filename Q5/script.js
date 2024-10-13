@@ -64,7 +64,7 @@ function renderTasks() {
                 } onchange="event.stopPropagation();">
                 <span class="task-text ${task.completed ? "completed" : ""}">${task.text}</span>
             </div>
-            <button class="btn btn-danger btn-sm" onclick="deleteTask(${task.id})">
+            <button class="icon-button" onclick="deleteTask(${task.id})">
                 <svg class="feather feather-trash-2">
                     <polyline points="3 6 5 6 21 6"></polyline>
                     <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
