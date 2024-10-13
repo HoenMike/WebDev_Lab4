@@ -21,6 +21,13 @@
       }
       .task-text {
         margin-left: 0.5rem;
+        cursor: pointer;
+        flex-grow: 1;
+      }
+      .task-content {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
       }
     </style>
   </head>
@@ -82,8 +89,9 @@
             id: Date.now(),
             text: taskInput.value,
             completed: false,
+            createdAt: Date.now(),
           };
-          tasks.push(newTask);
+          tasks.unshift(newTask); // Add new task to the beginning of the array
           saveTasks();
           renderTasks();
           taskInput.value = "";
@@ -106,21 +114,23 @@
 
       function renderTasks() {
         const sortedTasks = [...tasks].sort((a, b) => {
-          if (a.completed === b.completed) return 0;
-          return a.completed ? 1 : -1;
+          if (a.completed === b.completed) {
+            // If both tasks have the same completion status, sort by creation time (newest first)
+            return b.createdAt - a.createdAt;
+          }
+          // Otherwise, incomplete tasks come first
+          return a.completed ? b.completedAt - a.completedAt : -1;
         });
 
         taskList.innerHTML = sortedTasks
           .map(
             (task) => `
               <li class="list-group-item task-item">
-                <div class="form-check">
+                <div class="task-content" onclick="toggleTask(${task.id})">
                   <input class="form-check-input" type="checkbox" ${
                     task.completed ? "checked" : ""
-                  } onchange="toggleTask(${task.id})">
-                  <label class="form-check-label task-text ${task.completed ? "completed" : ""}">${
-              task.text
-            }</label>
+                  } onchange="event.stopPropagation();">
+                  <span class="task-text ${task.completed ? "completed" : ""}">${task.text}</span>
                 </div>
                 <button class="btn btn-danger btn-sm" onclick="deleteTask(${task.id})">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
