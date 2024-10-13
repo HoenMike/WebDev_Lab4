@@ -78,7 +78,7 @@
           saveTasks();
           renderTasks();
           taskInput.value = "";
-          showToast("Task added successfully!", "success");
+          showToast("Task added successfully!", "bg-success");
         }
       }
 
@@ -96,7 +96,7 @@
           tasks = tasks.filter((task) => task.id !== id);
           saveTasks();
           renderTasks();
-          showToast("Task deleted successfully!", "danger");
+          showToast("Task deleted successfully!", "bg-danger");
         }
       }
 
@@ -150,13 +150,13 @@
         }, "");
       }
 
-      function showToast(message, type) {
+      function showToast(message, bgClass) {
         const toast = document.createElement("div");
-        toast.className = `toast align-items-center text-bg-${type} border-0 show`;
+        toast.className = `toast align-items-center text-bg-light border-0 show ${bgClass}`;
         toast.role = "alert";
         toast.innerHTML = `
                 <div class="d-flex">
-                    <div class="toast-body">${message}</div>
+                    <div class="toast-body fw-bold text-white">${message}</div>
                     <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
             `;
