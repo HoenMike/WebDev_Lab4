@@ -21,7 +21,7 @@ function addTask(e) {
   if (taskInput.value.trim() && taskInput.value.length <= 250) {
     const newTask = {
       id: Date.now(),
-      text: taskInput.value,
+      text: sanitizeInput(taskInput.value),
       completed: false,
       createdAt: Date.now(),
     };
@@ -45,6 +45,12 @@ function updateCharCount() {
     taskInput.classList.remove("error");
     charCountElement.classList.remove("text-danger");
   }
+}
+
+function sanitizeInput(input) {
+  const div = document.createElement("div");
+  div.appendChild(document.createTextNode(input));
+  return div.innerHTML;
 }
 
 function toggleTask(id) {
