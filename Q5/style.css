@@ -44,3 +44,9 @@
 .form-check-input {
   min-width: 15px; /* Set a minimum width for the checkbox */
 }
+.form-control.error {
+  border-color: #dc3545;
+}
+.text-danger {
+  color: #dc3545 !important;
+}

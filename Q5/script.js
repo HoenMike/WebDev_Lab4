@@ -2,6 +2,7 @@ const taskForm = document.getElementById("task-form");
 const taskInput = document.getElementById("task-input");
 const taskList = document.getElementById("task-list");
 const toastContainer = document.getElementById("toast-container");
+const charCountElement = document.getElementById("charCount");
 let tasks = [];
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -13,10 +14,11 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 taskForm.addEventListener("submit", addTask);
+taskInput.addEventListener("input", updateCharCount);
 
 function addTask(e) {
   e.preventDefault();
-  if (taskInput.value.trim()) {
+  if (taskInput.value.trim() && taskInput.value.length <= 250) {
     const newTask = {
       id: Date.now(),
       text: taskInput.value,
@@ -27,7 +29,21 @@ function addTask(e) {
     saveTasks();
     renderTasks();
     taskInput.value = "";
+    updateCharCount();
     showToast("Task added successfully!", "bg-success");
+  }
+}
+
+function updateCharCount() {
+  const charCount = taskInput.value.length;
+  const maxChars = taskInput.getAttribute("maxlength");
+  charCountElement.textContent = `${charCount}/${maxChars}`;
+  if (charCount >= maxChars) {
+    taskInput.classList.add("error");
+    charCountElement.classList.add("text-danger");
+  } else {
+    taskInput.classList.remove("error");
+    charCountElement.classList.remove("text-danger");
   }
 }
 
