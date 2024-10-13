@@ -16,16 +16,21 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem 1rem;
+  word-wrap: break-word;
+  white-space: normal;
 }
 .task-text {
   margin-left: 0.5rem;
   cursor: pointer;
   flex-grow: 1;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 .task-content {
   display: flex;
   align-items: center;
   flex-grow: 1;
+  max-width: 95%;
 }
 .icon-button {
   border: none;
@@ -35,4 +40,7 @@
 }
 .icon-button .feather {
   stroke: #dc3545;
+}
+.form-check-input {
+  min-width: 15px; /* Set a minimum width for the checkbox */
 }
